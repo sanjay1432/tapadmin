@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="row valign-wrapper">
+    <mat-card>
+      <mat-progress-bar mode="indeterminate" *ngIf='bar'></mat-progress-bar>
+      <div class="Img-logo">
+        <img src="../../assets/img/mainlogo.png" alt="" />
+      </div>
+      <h4 class="text-center">Administrator </h4>
+       <h5 class="text-center">Please login to get access</h5>
+      <form class="example-form" #login="ngForm" (ngSubmit)="onLogin(login)">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Username" name="username" ngModel required #username="ngModel">
+
+        </mat-form-field>
+        <br/>
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Password" name="password" type="password" ngModel required #password="ngModel">
+        </mat-form-field>
+        <h5 style="color:red">{{error}}</h5>
+        <div class="buttonHolder">
+          <button mat-raised-button color="warn">Login</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

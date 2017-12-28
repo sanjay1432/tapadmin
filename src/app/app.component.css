@@ -1,0 +1,29 @@
+.example-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* .side{
+  background-image: 'assets/img/mainlogo.img';
+  background: rgba(173,106,200,1);
+} */
+
+mat-sidenav{
+  background: linear-gradient(#f7caea, #8ccaf3);
+  width: 13%;
+}
+
+/* } */
+@media only screen 
+and (max-device-width: 640px), 
+only screen and (max-device-width: 667px), 
+only screen and (max-width: 480px)
+{
+   mat-sidenav{
+    background: linear-gradient(#f7caea, #8ccaf3);
+    width: 45% !important; 
+  }
+}

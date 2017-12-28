@@ -1,0 +1,19 @@
+<div  *ngIf="type === 'admin'">
+    <div class="Img-logo" style="text-align:center; padding-top:1rem">
+        <img src="../../assets/img/mainlogo.png" alt="" />
+      </div>
+     <div style="text-align:center"> <mat-list role="list"  style=" padding-top:1rem;">
+        <!-- <mat-list-item role="listitem"><a mat-raised-button routerLink="/dashboard">Dashboard</a></mat-list-item> -->
+        <mat-list-item role="listitem"><a mat-raised-button routerLink="/student-management">Student</a></mat-list-item>
+        <mat-list-item role="listitem"><a mat-raised-button routerLink="/course-management">Course</a></mat-list-item>
+        <mat-list-item role="listitem"><a mat-raised-button routerLink="/teacher-management">Teacher</a></mat-list-item>
+        <mat-list-item role="listitem"><a mat-raised-button routerLink="/parent-management">Parent</a></mat-list-item>
+        <mat-list-item role="listitem"><a mat-raised-button routerLink="/import">Import Data</a></mat-list-item>
+        <mat-list-item role="listitem"><a mat-raised-button routerLink="/meeting">Request Meeting</a></mat-list-item>
+        <mat-list-item role="listitem"><button mat-button  (click)="logout()">Logout</button></mat-list-item>
+      </mat-list>
+    </div>
+</div>
+
+
+

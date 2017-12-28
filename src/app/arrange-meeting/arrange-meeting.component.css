@@ -1,0 +1,25 @@
+.users{
+    border: 0;
+    background: transparent;
+    width: 100%;
+}
+
+button:focus {outline:0;}
+
+
+.request{
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: 5px;
+    background: rgba(0,0,0,.12);
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+}
+
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }

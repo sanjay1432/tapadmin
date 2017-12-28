@@ -1,0 +1,53 @@
+<div class="example-container mat-elevation-z8">
+    <h2 style="text-align:center">Parent Management  <button mat-raised-button style="float:right; background-color:limegreen;color:white; margin-top:2rem;margin-right:2rem;" (click)="onAdd()">Add new Parent</button></h2>
+    <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+      </div>
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+      <mat-cell *matCellDef="let parent"> {{parent.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let parent"> {{parent.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+      <mat-cell *matCellDef="let parent"> {{parent.email}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="phoneno">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </mat-header-cell>
+      <mat-cell *matCellDef="let parent"> {{parent.phoneno}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="address">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+      <mat-cell *matCellDef="let parent"> {{parent.address}} </mat-cell>
+    </ng-container>
+    
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+      <mat-cell *matCellDef="let parent"> <mat-icon matTooltip="Edit" [matTooltipPosition]="position" svgIcon="edit" (click)="onEdit(parent.userid)"></mat-icon><mat-icon matTooltip="remove" [matTooltipPosition]="position" svgIcon="remove" (click)="onRemove(parent.userid)"></mat-icon></mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <mat-paginator #paginator
+  [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 20]">
+</mat-paginator>
+</div>

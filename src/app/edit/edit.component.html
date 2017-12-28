@@ -1,0 +1,213 @@
+<div class="main-div">
+  <mat-card class="z-depth center" flex="50">
+    <h1 class="text-center">{{title}}</h1>
+    <button mat-raised-button color="primary" (click)='backClicked()'>Back</button>
+    
+    <form [formGroup]="user" (ngSubmit)="onUpdate(user)" *ngIf="type == 'student'">
+      <div class="example-container">
+
+        <mat-form-field>
+          <input matInput formControlName="enrollno" placeholder="Enrollment Number">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput formControlName="name" placeholder="Name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="email" placeholder="Email">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput [matDatepicker]="dp" placeholder="Date of Birth" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+        <div class="button-row" style="float:right">
+          <div style="float:right">
+            <button mat-raised-button style="background-color: #6ab97b;" type="submit">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button color="warn" (click)='backClicked()'>Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+    <form [formGroup]="newStudent" (ngSubmit)="onAdd(newStudent)" *ngIf="type == 'newStudent'">
+      <div class="example-container">
+
+        <mat-form-field>
+          <input matInput placeholder="Enrollment Number" formControlName="enrollno">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="email" formControlName="email" placeholder="Email">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput [matDatepicker]="dp" placeholder="Date of Birth" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+        <div class="button-row" style="float:right">
+          <div style="float:right">
+            <button mat-raised-button style="background-color: #6ab97b;" type="submit" [disabled]="!newStudent.valid">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button color="warn" (click)='backClicked()'>Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+    <form [formGroup]="newTeacher" (ngSubmit)="onAddTeacher(newTeacher)" *ngIf="type == 'newTeacher'">
+      <div class="example-container">
+       
+        <!-- <mat-form-field>
+          <input matInput placeholder="User Name" formControlName="Uname">
+        </mat-form-field> -->
+
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="email" formControlName="emailId" placeholder="Email">
+        </mat-form-field>
+
+
+        <mat-form-field>
+          <input matInput placeholder="Phone Number" formControlName="phoneNo">
+        </mat-form-field>
+        <div class="button-row" style="float:right">
+          <div style="float:right">
+            <button mat-raised-button style="background-color: #6ab97b;" type="submit" [disabled]="!newTeacher.valid">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button color="warn" (click)='backClicked()'>Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+    <form [formGroup]="teacher" (ngSubmit)="onUpdateTeacher(teacher)" *ngIf="type == 'updateTeacher'">
+      <div class="example-container">
+
+        <mat-form-field>
+          <input matInput formControlName="name" placeholder="Name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="email" placeholder="Email">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="phoneno" placeholder="Phone Number">
+        </mat-form-field>
+
+        <div class="button-row" style="float:right">
+          <div style="float:right">
+            <button mat-raised-button style="background-color: #6ab97b;" type="submit">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button color="warn" (click)='backClicked()'>Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+    <form [formGroup]="newParent" (ngSubmit)="onAdd(newParent)" *ngIf="type == 'newParent'">
+      <div class="example-container">
+
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="email" formControlName="email" placeholder="Email">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Phone Number" formControlName="phoneno">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput placeholder="Address" formControlName="address">
+        </mat-form-field>
+        <div class="button-row" style="float:right">
+          <div style="float:right">
+            <button mat-raised-button style="background-color: #6ab97b;" type="submit" [disabled]="!newParent.valid">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button color="warn" (click)='backClicked()'>Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+    <form [formGroup]="parent" (ngSubmit)="onUpdate(parent)" *ngIf="type == 'updateParent'">
+      <div class="example-container">
+
+        <mat-form-field>
+          <input matInput formControlName="name" placeholder="Name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="email" placeholder="Email">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="phoneno" placeholder="Phone Number">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="address" placeholder="Address">
+        </mat-form-field>
+        <div class="button-row" style="float:right">
+          <div style="float:right">
+            <button mat-raised-button style="background-color: #6ab97b;" type="submit">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button color="warn" (click)='backClicked()'>Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+    <form [formGroup]="newCourse" (ngSubmit)="onAdd(newCourse)" *ngIf="type == 'newCourse'">
+      <div class="example-container">
+
+        <mat-form-field>
+          <input matInput placeholder="Name" formControlName="name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="code" placeholder="Code">
+        </mat-form-field>
+
+        <div class="button-row" style="float:right">
+          <div style="float:right">
+            <button mat-raised-button style="background-color: #6ab97b;" type="submit" [disabled]="!newCourse.valid">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button color="warn" (click)='backClicked()'>Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+
+    <form [formGroup]="course" (ngSubmit)="onUpdate(course)" *ngIf="type == 'updateCourse'">
+      <div class="example-container">
+
+        <mat-form-field>
+          <input matInput formControlName="name" placeholder="Name">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput formControlName="code" placeholder="Code">
+        </mat-form-field>
+        <div class="button-row" style="float:right">
+          <div style="float:right">
+            <button mat-raised-button style="background-color: #6ab97b;" type="submit">Save</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button mat-raised-button color="warn" (click)='backClicked()'>Cancel</button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </mat-card>
+</div>
