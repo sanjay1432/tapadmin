@@ -19,6 +19,7 @@ import { ParentEditComponent } from './parent-edit/parent-edit.component';
 import { StudentProfileComponent } from './student-profile/student-profile.component';
 import { StudentCoursesComponent } from './student-courses/student-courses.component';
 import { ParentStudentComponent } from './parent-student/parent-student.component';
+import { StudentCourseComponent } from './student-course/student-course.component';
 const adminRoutes: Routes = [
   {
     path: '',
@@ -48,6 +49,7 @@ const adminRoutes: Routes = [
           { path: 'student-profile/:id', component: StudentProfileComponent,canActivate: [AuthGuard] },
           { path: 'student-courses/:id', component: StudentCoursesComponent,canActivate: [AuthGuard] },
           { path: 'parent-student', component: ParentStudentComponent,canActivate: [AuthGuard] },
+          { path: 'student-course', component: StudentCourseComponent,canActivate: [AuthGuard] },
         ]
       }
     ]

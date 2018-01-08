@@ -85,3 +85,12 @@
       <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Ok</button>
     </div>
   </div>
+  <div *ngIf="data.type =='linkedParentStudent'">
+      <h4 class="text-center">Linked successfully.</h4>
+      <div class="text-center" style="padding-top:2rem">
+        <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Ok</button>
+      </div>
+    </div>
+    <div *ngIf="data.type =='pending'">
+        <h4 class="text-center"><mat-spinner color='warn'></mat-spinner></h4>
+      </div>

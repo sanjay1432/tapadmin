@@ -8,6 +8,8 @@ import { MatSelectChange } from '@angular/material';
 import { HttpService } from '../../services/http.service';
 import { environment } from '../../../environments/environment';
 import { ParentStudentMapping } from '../../models/parentstudentmapping';
+import { ConfirmDialog } from '../import/import.component';
+import { MatDialog } from '@angular/material';
 @Component({
   selector: 'app-parent-student',
   templateUrl: './parent-student.component.html',
@@ -26,14 +28,14 @@ export class ParentStudentComponent implements OnInit {
   loader: boolean = false;
   parent: MatSelectChange;
 
-  constructor(private parentManagementService: ParentManagementService, private studentManagementService: StudentManagementService, public router: Router, private httpService: HttpService) {
+  constructor(private parentManagementService: ParentManagementService, private studentManagementService: StudentManagementService, public router: Router, private httpService: HttpService, public dialog: MatDialog) {
 
   }
 
   ngOnInit() {
     this.getParent();
-    this.getStudents();
-
+    this.getUnlinkedStudents();
+    this.getAllStudents();
   }
 
   onParentSelect(id): void {
@@ -47,7 +49,7 @@ export class ParentStudentComponent implements OnInit {
       .subscribe(students => {
         console.log(students)
         // this.tobeAddIds.push(students);
-        // this.selectedStudents = [];
+        this.selectedStudents = [];
         // this.onRight();
         this.moveStudents(students, this.unselectedStudents, this.selectedStudents);
 
@@ -98,15 +100,20 @@ export class ParentStudentComponent implements OnInit {
       .subscribe(parents => { this.parents = parents });
   }
 
-  getStudents(): void {
-    this.studentManagementService.get()
+  getUnlinkedStudents(): void {
+    this.studentManagementService.getUnlinked()
       .subscribe(students => {
         this.loader = true;
-        this.allStudents = [].concat(students);
         this.unselectedStudents = [].concat(students);
       });
   }
 
+  getAllStudents(): void {
+    this.studentManagementService.get()
+      .subscribe(students => {
+        this.allStudents = [].concat(students);
+      });
+  }
 
   onSave() {
     let psMapping = new ParentStudentMapping();
@@ -114,9 +121,32 @@ export class ParentStudentComponent implements OnInit {
       psMapping.studentIds.push(stu.id)
     });
     psMapping.parentId = this.selectedParent.id;
+    const dialogRefs = this.dialog.open(ConfirmDialog, {
+      height: '200px',
+      width: '20rem',
+      data: { type: 'pending' }
+    });
+
     this.parentManagementService.saveStudent(psMapping)
-      .subscribe(student => console.log(student));
+      .subscribe(student => {
+        if (student != undefined) {
+          dialogRefs.close();
+          const dialogRef = this.dialog.open(ConfirmDialog, {
+            height: '200px',
+            width: '20rem',
+            data: { type: 'linkedParentStudent' }
+          });
+
+          dialogRef.afterClosed().subscribe(result => {
+
+            console.log(`Dialog result: ${result}`);
+
+            // this.course.reset();
+            // Object.keys(this.course.controls).forEach(key => {
+            //   this.course.controls[key].setErrors(null)
+            // });
+          });
+        }
+      });
   }
-
-
 }

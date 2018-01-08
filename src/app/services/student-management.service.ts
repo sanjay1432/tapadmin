@@ -40,7 +40,10 @@ export class StudentManagementService {
   getMeeting(id): Observable<Studentmeeting[]>{
     return of(STUDENTMEETING.filter(x => x.userid == id));
   }
-
+  
+  getUnlinked(): Observable<Student[]> {
+    return this.httpService.httpGet( environment.BASE_URL + "api/student/unlinked");
+  }
   find(id: number): Observable<Student> {
     return this.httpService.httpGet(environment.BASE_URL + "api/student/find/" + id);
   }

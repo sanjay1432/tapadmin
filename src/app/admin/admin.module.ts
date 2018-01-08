@@ -21,6 +21,7 @@ import { ParentEditComponent } from './parent-edit/parent-edit.component';
 import { StudentProfileComponent } from './student-profile/student-profile.component';
 import { StudentCoursesComponent } from './student-courses/student-courses.component';
 import { ParentStudentComponent } from './parent-student/parent-student.component';
+import { StudentCourseComponent } from './student-course/student-course.component';
 
 import { AdminRoutingModule }       from './admin-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -96,7 +97,8 @@ import {MatSliderModule} from '@angular/material/slider';
     ParentEditComponent,
     StudentProfileComponent,
     StudentCoursesComponent,
-    ParentStudentComponent
+    ParentStudentComponent,
+    StudentCourseComponent
   ]
 })
 export class AdminModule {}
