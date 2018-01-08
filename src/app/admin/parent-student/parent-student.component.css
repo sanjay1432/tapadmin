@@ -1,0 +1,20 @@
+.Content {
+  height: 30rem;
+  overflow: auto;
+  background: #fff;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.center {
+  height: 15em;
+  width: 15em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}

@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(public authService: AuthService, public router: Router) { 
-    localStorage.clear();
+    // localStorage.clear();
   }
 
   ngOnInit() {
@@ -30,15 +30,13 @@ export class LoginComponent implements OnInit {
 
       if (user.hasOwnProperty('error')) {
         this.error = 'Invalid username/password!';
-      } else {
-
-        
+      } else { 
         SessionData.AuthToken = user.access_token;
         SessionData.userType = 'admin';
 
         // Get the redirect URL from our auth service
         // If no redirect has been set, use the default
-        let redirect = SessionData.redirectURL ? SessionData.redirectURL : '/student-management';
+        let redirect = SessionData.redirectURL ? SessionData.redirectURL : '/admin/student-management';
         
         // Redirect the user
         this.router.navigate([redirect]);

@@ -1,0 +1,87 @@
+<div *ngIf="data.type =='import'">
+  <h4 class="text-center">Data saved.</h4>
+  <div class="text-center" style="padding-top:2rem">
+    <button mat-raised-button style="background-color:limegreen;color:white;" [mat-dialog-close]="true">Ok</button>
+  </div>
+</div>
+<div *ngIf="data.type =='message'">
+  <h4 class="text-center">Successfuly send.</h4>
+  <div class="text-center" style="padding-top:2rem">
+    <button mat-raised-button style="background-color:limegreen;color:white;" [mat-dialog-close]="true">Ok</button>
+  </div>
+</div>
+
+<div *ngIf="data.type =='behavior'">
+    <h4 class="text-center">Successfuly Reported.</h4>
+    <div class="text-center" style="padding-top:2rem">
+      <button mat-raised-button style="background-color:limegreen;color:white;" [mat-dialog-close]="true">Ok</button>
+    </div>
+  </div>
+
+<div *ngIf="data.type =='remove'">
+  <h4 class="text-center">Do you really want to remove?</h4>
+  <div class="text-center" style="padding-top:2rem">
+    <button mat-raised-button style="background-color:limegreen;color:white;" [mat-dialog-close]="data.id">Yes</button>
+    <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Cancel</button>
+  </div>
+</div>
+
+<div *ngIf="data.type =='request'">
+    <h4 class="text-center">Request for meeting has been successfully sent to {{data.value.teacher.name}} from {{data.value.parent.name}} on {{data.value.date | date: 'dd/MM/yyyy'}} at {{data.value.time}}.</h4>
+    <div class="text-center" style="padding-top:2rem">
+      <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Ok</button>
+    </div>
+  </div>
+
+  
+  <div *ngIf="data.type =='addTeacher'">
+    <h4 class="text-center">{{data.teacher.name}} is successfully added.</h4>
+    <div class="text-center" style="padding-top:2rem">
+      <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Ok</button>
+    </div>
+  </div>
+  <div *ngIf="data.type =='updateTeacher'">
+    <h4 class="text-center">{{data.teacher.name}} is successfully updated.</h4>
+    <div class="text-center" style="padding-top:2rem">
+      <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Ok</button>
+    </div>
+  </div>
+
+  <div *ngIf="data.type =='addStudent'">
+    <h4 class="text-center">{{data.student.name}} is successfully added.</h4>
+    <div class="text-center" style="padding-top:2rem">
+      <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Ok</button>
+    </div>
+  </div>
+  <div *ngIf="data.type =='updateStudent'">
+    <h4 class="text-center">{{data.student.name}} is successfully updated.</h4>
+    <div class="text-center" style="padding-top:2rem">
+      <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Ok</button>
+    </div>
+  </div>
+
+  <div *ngIf="data.type =='addParent'">
+    <h4 class="text-center">{{data.parent.name}} is successfully added.</h4>
+    <div class="text-center" style="padding-top:2rem">
+      <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Ok</button>
+    </div>
+  </div>
+  <div *ngIf="data.type =='updateParent'">
+    <h4 class="text-center">{{data.parent.name}} is successfully updated.</h4>
+    <div class="text-center" style="padding-top:2rem">
+      <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Ok</button>
+    </div>
+  </div>
+
+  <div *ngIf="data.type =='addCourse'">
+    <h4 class="text-center">{{data.courses.name}} is successfully added.</h4>
+    <div class="text-center" style="padding-top:2rem">
+      <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Ok</button>
+    </div>
+  </div>
+  <div *ngIf="data.type =='updateCourse'">
+    <h4 class="text-center">{{data.courses.name}} is successfully updated.</h4>
+    <div class="text-center" style="padding-top:2rem">
+      <button mat-raised-button style="background-color:rgb(31, 49, 31);color:white;" [mat-dialog-close]="true">Ok</button>
+    </div>
+  </div>

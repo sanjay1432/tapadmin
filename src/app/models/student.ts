@@ -1,11 +1,11 @@
 export class Student {
     id: number;
-    username:string;
+    userName:string;
+    parentName:string;
     name: string;
-    userid:string;
-    email:string;
-    enrollmentno:string;
-    dateofbirth:Date;
+    emailId:string;
+    enrollmentNo:string;
+    dob:Date;
   }
   
   

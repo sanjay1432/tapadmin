@@ -1,0 +1,75 @@
+<div class="example-container mat-elevation-z8">
+  <span>
+    <h2 style="text-align:center">Student Management </h2>
+  </span>
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  </div>
+  <mat-table #table [dataSource]="dataSource" matSort *ngIf='!loader'>
+
+    <!-- Position Column -->
+    <!-- Name Column -->
+    <ng-container matColumnDef="enrollmentNo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Enrollment Number </mat-header-cell>
+      <mat-cell *matCellDef="let student"> {{student.enrollmentNo}} </mat-cell>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="parentName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Parent Name </mat-header-cell>
+      <mat-cell *matCellDef="let student"> {{student.parentName}} </mat-cell>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Student Name </mat-header-cell>
+      <mat-cell *matCellDef="let student"> {{student.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="emailId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+      <mat-cell *matCellDef="let student"> {{student.emailId}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="dob">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Date of Birth </mat-header-cell>
+      <mat-cell *matCellDef="let student"> {{student.dob| date: 'dd/MM/yyyy'}} </mat-cell>
+    </ng-container>
+   
+    <!-- Name Column -->
+    <ng-container matColumnDef="view">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> View Profile </mat-header-cell>
+      <mat-cell *matCellDef="let student">
+        <mat-icon matTooltip="profile" [matTooltipPosition]="position" svgIcon="profile" (click)="onView(student.id)"></mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    
+
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+      <mat-cell *matCellDef="let student">
+          <mat-icon matTooltip="add courses" [matTooltipPosition]="position" svgIcon="add" (click)="onAddcourse(student.id)"></mat-icon>
+        <mat-icon matTooltip="Edit" [matTooltipPosition]="position" svgIcon="edit" (click)="onEdit(student.id)"></mat-icon>
+        <mat-icon matTooltip="Attendence" [matTooltipPosition]="position" svgIcon="attendence" (click)="onAttendence(student.id)"></mat-icon>
+        <mat-icon matTooltip="Performance" [matTooltipPosition]="position" svgIcon="performance" (click)="onPerformance(student.id)"></mat-icon>
+        &nbsp;&nbsp;
+        <mat-icon matTooltip="lateness" [matTooltipPosition]="position" svgIcon="late" (click)="onLate(student.userid)"></mat-icon>
+        <mat-icon matTooltip="meetings" [matTooltipPosition]="position" svgIcon="meeting" (click)="onMeeting(student.userid)"></mat-icon>
+        <mat-icon matTooltip="message" [matTooltipPosition]="position" svgIcon="message" (click)="onMessage(student.userid)"></mat-icon>
+        &nbsp;&nbsp;
+        <mat-icon matTooltip="remove" [matTooltipPosition]="position" svgIcon="remove" (click)="onRemove(student.userid)"></mat-icon>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <div *ngIf='loader' class="center">
+    <mat-spinner color='warn'></mat-spinner>
+  </div>
+  <mat-paginator #paginator [pageSize]="10" [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+</div>

@@ -1,0 +1,56 @@
+<mat-form-field>
+  <mat-select placeholder="Select Parent">
+    <mat-option *ngFor="let parent of parents" [value]="parent.id" (click)="onParentSelect(parent.id)">
+      {{ parent.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<div class="row">
+  <div class="col-lg-2"></div>
+  <div class="col-lg-3 Content">
+    <h2 class="text-center">Select Student</h2>
+    <hr>
+    <mat-selection-list *ngIf='loader'>
+      <mat-list-option *ngFor="let student of unselectedStudents" (click)="onSelect(student.id)">
+        {{student.name}}
+      </mat-list-option>
+    </mat-selection-list>
+    <div *ngIf='!loader' class="center">
+      <mat-spinner color='warn'></mat-spinner>
+    </div>
+  </div>
+  <div class="col-lg-2 text-center">
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <button mat-button (click)="onRight()">
+      <img src="../../../assets/img/right.png">
+    </button>
+
+    <br/>
+    <br/>
+    <button mat-button (click)="onLeft()">
+      <img src="../../../assets/img/left.png">
+    </button>
+  </div>
+  <div class="col-lg-3 Content">
+    <h2 class="text-center">Selected Student</h2>
+    <hr>
+    <mat-selection-list>
+      <mat-list-option *ngFor="let student of selectedStudents" (click)="onRemove(student.id)">
+        {{student.name}}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
+  <div class="col-lg-2 text-center">
+  </div>
+
+
+  <button mat-raised-button disabled *ngIf='!valid' style="margin-left: 83rem;margin-top: 1rem;">Save</button>
+  <button mat-raised-button (click)="onSave()" style="background: #5cb85c; color: white;margin-left: 83rem;margin-top: 1rem;"
+    *ngIf='valid'>Save</button>
+
+
+</div>

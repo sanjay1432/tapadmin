@@ -1,0 +1,14 @@
+<div>
+  <span style="float:right"><button mat-button [mat-dialog-close]="true">close</button></span>
+    <div style="display: block">
+      <canvas baseChart
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+
+  </div>

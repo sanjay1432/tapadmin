@@ -27,9 +27,8 @@ export class HttpService {
   public httpPost(body: any, url: string): Observable<any> {
     let headers = new Headers();
 
-    if (typeof (Storage) !== "undefined") {
-      let token = localStorage.getItem("AuthToken");
-      headers.append('Authorization', 'bearer ' + token);
+    if (typeof (Storage) !== "undefined") {      
+      headers.append('Authorization', 'bearer ' + SessionData.AuthToken);
     }
     return this.http.post(url, body,
       {
@@ -73,7 +72,6 @@ export class HttpService {
     return this.http.get(url, { headers: headers }).map(
       (response: Response) => this.parseResponse(response))
       .catch((err: any) => this.handleError(err));
-
   }
 
   public httpFilePost(formData: any, url: string): Observable<any> {

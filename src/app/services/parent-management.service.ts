@@ -4,34 +4,41 @@ import { retry } from 'rxjs/operators/retry';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx'; //get everything from Rx    
 
 import { Parent } from '../models/parent';
+import {ParentStudentMapping} from '../models/parentstudentmapping';
 import { PARENT } from '../data/mock-data';
-// const httpOptions = {
-//   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-// };
+import { SessionData } from '../models/session-data';
+import { HttpService } from './http.service';
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class ParentManagementService {
-  private heroesUrl = 'http://tap-backend-qa.5sol.co.uk/api/parent/get';  // URL to web api
-  constructor(private http: Http) { }
-   
-  // get(): Observable<Parent[]>{
-  //   return of(PARENT);
-  // }
+
+  constructor(private http: Http, private httpService: HttpService) { }
+
   get(): Observable<Parent[]> {
-    return this.http.get(this.heroesUrl)
-      .map((response: Response) => {
-        return <Parent[] > JSON.parse(response.json())  
-      });
+    return this.httpService.httpGet(environment.PARENT_GET_URL);
   }
-  getOne(id): Observable<Parent>{
-  
-    return of(PARENT.find(item => item.userid === id));
+  find(id: number): Observable<Parent> {
+    return this.httpService.httpGet(environment.BASE_URL + "api/parent/find/" + id);
   }
+  update(parent: Parent): Observable<any> {
+    return this.httpService.httpPost(parent, environment.BASE_URL + "api/parent/update");
+  }
+  addParent (parent: Parent): Observable<any> {
+    return this.httpService.httpPost(parent,environment.PARENT_POST_URL);
+  }
+  saveStudent(psMapping:ParentStudentMapping): Observable<any> {
+    return this.httpService.httpPost(psMapping, environment.BASE_URL + "api/ParentStudentMapping/create");
+  }
+  getParentStudents(id: number) {
+    return this.httpService.httpGet( environment.BASE_URL + "api/ParentStudentMapping/find/" +id);
+  }
+
 
     /** Post: Delete the teacher on the server */
     removeParent (parent: Parent): Observable<any> {

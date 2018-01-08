@@ -1,9 +1,9 @@
 export class Parent {
     id: number;
-    username:string;
+    userName:string;
     name: string;
-    email:string;
-    phoneno:string;
+    emailId:string;
+    phoneNo:string;
     address:string;
     userid:string;
   }

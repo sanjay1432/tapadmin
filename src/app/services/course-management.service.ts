@@ -8,7 +8,7 @@ import { retry } from 'rxjs/operators/retry';
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/Rx'; //get everything from Rx    
 import 'rxjs/add/operator/toPromise';
-import {COURSE} from '../data/mock-data';
+import { COURSE } from '../data/mock-data';
 import { Course } from '../models/course';
 import { environment } from '../../environments/environment';
 import { HttpService } from './http.service';
@@ -16,23 +16,34 @@ import { HttpService } from './http.service';
 @Injectable()
 export class CourseManagementService {
 
-  private heroesUrl = 'http://tap-backend-qa.5sol.co.uk/api/course/get';  // URL to web api
-  
+
   constructor(private http: Http, private httpService: HttpService) { }
-   
-   get(): Observable<Course[]> {
-     return this.httpService.httpGet(environment.COURSE_GET_URL);
-   }
-  
-  getOne(code): Observable<Course>{
-  
+
+  get(): Observable<Course[]> {
+    return this.httpService.httpGet(environment.BASE_URL + "api/course/get");
+  }
+
+  create(course: Course): Observable<any> {
+    return this.httpService.httpPost(course, environment.BASE_URL + "api/course/create");
+  }
+
+  update(course: Course): Observable<any> {
+    return this.httpService.httpPost(course, environment.BASE_URL + "api/course/update");
+  }
+
+  find(id: number): Observable<Course> {
+    return this.httpService.httpGet(environment.BASE_URL + "api/course/find/" + id);
+  }
+
+  getOne(code): Observable<Course> {
+
     return of(COURSE.find(item => item.code === code));
   }
 
-   /** Post: Delete the teacher on the server */
-   removeCourse (course: Course): Observable<any> {
+  /** Post: Delete the teacher on the server */
+  removeCourse(course: Course): Observable<any> {
     console.log('delete service')
-        console.log(course)
+    console.log(course)
     return this.http.delete('').pipe(
       tap(_ => console.log(`delete parent`)),
       catchError(this.handleError<any>('deleteParent'))
@@ -62,5 +73,5 @@ export class CourseManagementService {
   private log(message: any) {
     console.log(message);
   }
-  
+
 }

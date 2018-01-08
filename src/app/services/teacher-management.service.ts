@@ -6,66 +6,35 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
 import { Teacher } from '../models/teacher';
 import { TEACHER } from '../data/mock-data';
-// import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-
-
+import { SessionData } from '../models/session-data';
+import { HttpService } from './http.service';
 import 'rxjs/Rx'; //get everything from Rx    
 import 'rxjs/add/operator/toPromise';
-// const httpOptions = {
-//   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-// };
+import { environment } from '../../environments/environment';
+
 @Injectable()
 export class TeacherManagementService {
-  private heroesUrl = 'http://tap-backend-qa.5sol.co.uk/api/teacher/get';  // URL to web api
-  constructor(private http: Http) { }
-  // get(): Observable<Teacher[]>{
-  //   return of(TEACHER);
-  // }
+
+  constructor(private http: Http, private httpService: HttpService) { }
+
   get(): Observable<Teacher[]> {
-    return this.http.get(this.heroesUrl)
-      .map((response: Response) => {
-        return <Teacher[] > JSON.parse(response.json())  
-      });
-  }
-  getOne(id): Observable<Teacher>{
-    return of(TEACHER.find(item => item.id === id));
+    return this.httpService.httpGet(environment.TEACHER_GET_URL);
   }
 
-  // getOne(id): Observable<Teacher[]>{
-  //   console.log(id)
-  //   return this.http.get('http://tap-backend-qa.5sol.co.uk/api/teacher/GetProfile/'+id)
-  //   .map((response: Response) => {
-  //       console.log(response)
-  //     return <Teacher[] > JSON.parse(response.json())  
-  //   });
-  // }
+  find(id: number): Observable<Teacher> {
+    return this.httpService.httpGet(environment.BASE_URL + "api/teacher/find/" + id);
+  }
+  update(teacher: Teacher): Observable<any> {
+    return this.httpService.httpPost(teacher, environment.BASE_URL + "api/teacher/update");
+  }
     /** Post: add the student on the server */
   addTeacher (teacher: Teacher): Observable<any> {
-      console.log(teacher)
-    let headers = new Headers();
-    let options = new RequestOptions({ headers: headers });
-    // const body = new HttpParams()
-    // .set('Uname', teacher.username)
-    // .set('name', teacher.name)
-    // .set('phoneno', teacher.phoneno)
-    // .set('roleId', teacher.roleID);
-
-    return this.http.post('http://a639032f.ngrok.io/api/teacher/create', teacher, options).pipe(
-      tap(_ => console.log(`add teacher`)),
-      catchError(this.handleError<any>('addTeacher'))
-    );
+    return this.httpService.httpPost(teacher,environment.TEACHER_POST_URL);
   }
 
-  /** PUT: update the student on the server */
-  updateTeacher (teacher: Teacher): Observable<any> {
-    console.log(teacher)
- return this.http.put('', teacher).pipe(
-   tap(_ => console.log(`updated student id=${teacher.id}`)),
-   catchError(this.handleError<any>('updateStudent'))
- );
-}
+
 
     
    /** Post: Delete the teacher on the server */

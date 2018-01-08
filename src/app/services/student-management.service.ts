@@ -12,8 +12,10 @@ import { Studentmeeting } from '../models/studentmeeting';
 import { STUDENTLATE } from '../data/mock-data';
 import { STUDENTS } from '../data/mock-data';
 import { STUDENTMEETING } from '../data/mock-data';
-// import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { SessionData } from '../models/session-data';
+import { HttpService } from './http.service';
+import { environment } from '../../environments/environment';
 import 'rxjs/add/operator/toPromise';
 
 
@@ -21,24 +23,16 @@ import 'rxjs/Rx'; //get everything from Rx
 import 'rxjs/add/operator/toPromise';
 
 
-// const httpOptions = {
-//   headers: new Headers({ 'Content-Type': 'application/json','Access-Control-Allow-Origin': '*','Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PUT, PATCH, DELETE','Access-Control-Allow-Headers': 'X-Requested-With,content-type'})
-// };
 @Injectable()
 export class StudentManagementService {
 
-  private heroesUrl = 'http://tap-backend-qa.5sol.co.uk/api/student/get';  // URL to web api
-  constructor(private http: Http) { }
+
+  constructor(private http: Http, private httpService: HttpService) { }
   
   get(): Observable<Student[]> {
-    return this.http.get(this.heroesUrl)
-      .map((response: Response) => {
-        return <Student[]> JSON.parse(response.json())  
-      });
+    return this.httpService.httpGet(environment.STUDENT_GET_URL);
   }
-  // get(): Observable<Student[]>{
-  //   return of(STUDENTS);
-  // }
+
   getLate(id): Observable<Studentlate[]>{
     return of(STUDENTLATE.filter(x => x.userid == id));
   }
@@ -46,27 +40,18 @@ export class StudentManagementService {
   getMeeting(id): Observable<Studentmeeting[]>{
     return of(STUDENTMEETING.filter(x => x.userid == id));
   }
-  getOne(id): Observable<Student>{
-  
-    return of(STUDENTS.find(item => item.userid === id));
+
+  find(id: number): Observable<Student> {
+    return this.httpService.httpGet(environment.BASE_URL + "api/student/find/" + id);
   }
-  /** PUT: update the student on the server */
-  updateStudent (student: Student): Observable<any> {
-       console.log(student)
-    return this.http.put('', student).pipe(
-      tap(_ => console.log(`updated student id=${student.id}`)),
-      catchError(this.handleError<any>('updateStudent'))
-    );
+  update(student: Student): Observable<any> {
+    return this.httpService.httpPost(student, environment.BASE_URL + "api/student/update");
   }
-  
+
    /** Post: add the student on the server */
   addStudent (student: Student): Observable<any> {
-    console.log('Add service')
-        console.log(student)
-    return this.http.post('', student).pipe(
-      tap(_ => console.log(`add student`)),
-      catchError(this.handleError<any>('addStudent'))
-    );
+    console.log(student)
+    return this.httpService.httpPost(student,environment.STUDENT_POST_URL);
   }
   
   /** Post: Delete the student on the server */

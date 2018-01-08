@@ -1,0 +1,179 @@
+<h2 class="text-center">
+  Request Meeting</h2>
+  <h6 class="text-center">on behalf of</h6>
+<div class="row">
+  <div class="col-lg-3"></div>
+  <div class="col-lg-2">
+    <button class="users" (click)="onClick('parent')">
+      <mat-card style="background:rgba(206,199,236,0.41);font-size: x-large;" *ngIf='!isParentClicked'>
+        <img src="../../../assets/img/Parent.png" style="height: 5rem;"> Parent
+      </mat-card>
+      <mat-card style="background:rgba(255,255,255,.87);font-size: x-large;" *ngIf='isParentClicked'>
+        <img src="../../../assets/img/Parent.png" style="height: 5rem;"> Parent
+      </mat-card>
+    </button>
+  </div>
+  <div class="col-lg-2">
+    <button class="users" (click)="onClick('teacher')">
+      <mat-card style="background:rgba(206,199,236,0.41);font-size: x-large;" *ngIf='!isTeacherClicked'>
+        <img src="../../../assets/img/Teacher.png" style="height: 5rem;"> Teacher
+      </mat-card>
+      <mat-card style="background:rgba(255,255,255,.87);font-size: x-large;" *ngIf='isTeacherClicked'>
+        <img src="../../../assets/img/Teacher.png" style="height: 5rem;"> Teacher
+      </mat-card>
+    </button>
+  </div>
+  <div class="col-lg-2">
+    <button class="users" (click)="onClick('student')">
+      <mat-card style="background:rgba(206,199,236,0.41);font-size: x-large;" *ngIf='!isStudentClicked'>
+        <img src="../../../assets/img/Student.png" style="height: 5rem;"> Student
+      </mat-card>
+      <mat-card style="background:rgba(255,255,255,.87);font-size: x-large;" *ngIf='isStudentClicked'>
+        <img src="../../../assets/img/Student.png" style="height: 5rem;"> Student
+      </mat-card>
+    </button>
+  </div>
+  <div class="col-lg-3"></div>
+</div>
+
+<div class="row">
+  <div class="col-lg-4"></div>
+  <div class="col-lg-4" style="padding-top: 2rem;">
+    <!-- For parent -->
+    <div *ngIf='isParentClicked' class="request">
+      <form [formGroup]="meetingRequest" (ngSubmit)="onPRequest(meetingRequest)">
+        FROM:
+        <mat-form-field>
+          <mat-select placeholder="Select Parent" (change)="parent = $event" formControlName="parent">
+            <mat-option *ngFor="let parent of Parents" [value]="parent">
+              {{ parent.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br/> TO:
+        <mat-form-field>
+          <mat-select placeholder="Select Teacher" (change)="teacher = $event" formControlName="teacher">
+            <mat-option *ngFor="let teacher of Teachers" [value]="teacher">
+              {{ teacher.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br/>
+        <mat-form-field style="width:100%">
+          <input matInput placeholder="Message" formControlName="message">
+        </mat-form-field>
+        <br/>
+        <mat-form-field style="width:100%">
+          <input matInput placeholder="Time" formControlName="time" type="time">
+        </mat-form-field>
+        <br/>
+        <mat-form-field style="width:100%">
+          <input matInput [matDatepicker]="dp" placeholder="Date" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+        <p *ngIf ='!isST' style="color:brown">*Either Student or Teacher is required to be selected.</p>
+        <div class="text-center" style="padding-bottom:1rem">
+          <button mat-raised-button type="submit" [disabled]="!meetingRequest.valid">Request</button>
+        </div>
+      </form>
+    </div>
+    <!-- For teacher -->
+    <div *ngIf='isTeacherClicked' class="request">
+      <form [formGroup]="meetingRequest" (ngSubmit)="onTRequest(meetingRequest)">
+        FROM:
+        <mat-form-field>
+          <mat-select placeholder="Select Teacher" (change)="teacher = $event" formControlName="teacher">
+            <mat-option *ngFor="let teacher of Teachers" [value]="teacher">
+              {{ teacher.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br/> TO:
+        <mat-form-field>
+          <mat-select placeholder="Select Parent" (change)="parent = $event" formControlName="parent">
+            <mat-option *ngFor="let parent of Parents" [value]="parent">
+              {{ parent.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        or
+        <mat-form-field>
+          <mat-select placeholder="Select Student" (change)="student = $event" formControlName="student">
+            <mat-option *ngFor="let student of Students" [value]="student">
+              {{ student.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br/>
+        <mat-form-field style="width:100%">
+          <input matInput placeholder="Message" formControlName="message">
+        </mat-form-field>
+        <br/>
+        <mat-form-field style="width:100%">
+          <input matInput placeholder="Time" formControlName="time" type="time">
+        </mat-form-field>
+        <br/>
+        <mat-form-field style="width:100%">
+          <input matInput [matDatepicker]="dp" placeholder="Date" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+        <p *ngIf ='!isSP' style="color:brown">*Either Student or Parent is required to be selected.</p>
+        <div class="text-center" style="padding-bottom:1rem">
+          <button mat-raised-button type="submit" [disabled]="!meetingRequest.valid">Request</button>
+        </div>
+      </form>
+    </div>
+    <!-- For student -->
+    <div *ngIf='isStudentClicked' class="request">
+      <form [formGroup]="meetingRequest" (ngSubmit)="onSRequest(meetingRequest)">
+        FROM:
+        <mat-form-field>
+          <mat-select placeholder="Select Student" (change)="student = $event" formControlName="student">
+            <mat-option *ngFor="let student of Students" [value]="student">
+              {{ student.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br/> TO:
+        <mat-form-field>
+          <mat-select placeholder="Select Parent" (change)="parent = $event" formControlName="parent">
+            <mat-option *ngFor="let parent of Parents" [value]="parent">
+              {{ parent.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        or
+        <mat-form-field>
+
+          <mat-select placeholder="Select Teacher" (change)="teacher = $event" formControlName="teacher">
+            <mat-option *ngFor="let teacher of Teachers" [value]="teacher">
+              {{ teacher.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br/>
+        <mat-form-field style="width:100%">
+          <input matInput placeholder="Message" formControlName="message">
+        </mat-form-field>
+        <br/>
+        <mat-form-field style="width:100%">
+          <input matInput placeholder="Time" formControlName="time" type="time">
+        </mat-form-field>
+        <br/>
+        <mat-form-field style="width:100%">
+          <input matInput [matDatepicker]="dp" placeholder="Date" formControlName="date">
+          <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+          <mat-datepicker #dp></mat-datepicker>
+        </mat-form-field>
+        <p *ngIf ='!isTP' style="color:brown">*Either Teacher or Parent is required to be selected.</p>
+        <div class="text-center" style="padding-bottom:1rem">
+          <button mat-raised-button type="submit" [disabled]="!meetingRequest.valid">Request</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-lg-4"></div>
+
+</div>

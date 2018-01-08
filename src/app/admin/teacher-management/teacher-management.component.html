@@ -1,0 +1,59 @@
+<div class="example-container mat-elevation-z8">
+    <h2 style="text-align:center">Teacher Management <button mat-raised-button style="float:right; background-color:limegreen;color:white; margin-top:2rem;margin-right:2rem;" (click)="onAdd()">Add new Teacher</button></h2>
+    <div class="example-header">
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+        </mat-form-field>
+      </div>
+  <mat-table #table [dataSource]="dataSource" matSort *ngIf='!loader'>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
+      <mat-cell *matCellDef="let teacher"> {{teacher.id}} </mat-cell>
+    </ng-container>
+     <!-- Name Column -->
+     <ng-container matColumnDef="userName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> User Name </mat-header-cell>
+      <mat-cell *matCellDef="let teacher"> {{teacher.userName}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let teacher"> {{teacher.name}} </mat-cell>
+    </ng-container>
+    
+      <!-- Name Column -->
+      <ng-container matColumnDef="emailId">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+        <mat-cell *matCellDef="let teacher"> {{teacher.emailId}} </mat-cell>
+      </ng-container>
+        <!-- Name Column -->
+
+    <ng-container matColumnDef="phoneNo" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Phone Number </mat-header-cell>
+      <mat-cell *matCellDef="let teacher"> {{teacher.phoneNo}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="report" >
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Report </mat-header-cell>
+      <mat-cell *matCellDef="let teacher"><mat-icon matTooltip="behavior" [matTooltipPosition]="position" svgIcon="behavior" (click)="onBehavior(teacher.userid)"></mat-icon> </mat-cell>
+    </ng-container>
+    <!-- Action Column -->
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+      <mat-cell *matCellDef="let teacher"> <mat-icon matTooltip="Edit" [matTooltipPosition]="position" svgIcon="edit" (click)="onEdit(teacher.id)"></mat-icon>
+        
+        <mat-icon matTooltip="remove" [matTooltipPosition]="position" svgIcon="remove" (click)="onRemove(teacher.userid)"></mat-icon>
+      </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  <div *ngIf='loader' class="center"><mat-spinner color='warn'></mat-spinner></div>
+  <mat-paginator #paginator
+  [pageSize]="10"
+  [pageSizeOptions]="[5, 10, 20, 50]">
+</mat-paginator>
+</div>
